@@ -21,12 +21,12 @@ sudo iptables -N ICMP
 # TCP chain
 ## SSH at 8022
 sudo iptables -A TCP -p tcp --dport 8022 -j ACCEPT
-## SS at 8080
-sudo iptables -A TCP -p tcp --dport 8080 -j ACCEPT
+## SS at 8060
+sudo iptables -A TCP -p tcp --dport 8060 -j ACCEPT
 
 # UDP chain
-## SS at 8080
-sudo iptables -A UDP -p udp --dport 8080 -j ACCEPT
+## SS at 8060
+sudo iptables -A UDP -p udp --dport 8060 -j ACCEPT
 
 # ICMP chain
 ## ping
