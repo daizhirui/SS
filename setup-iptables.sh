@@ -1,3 +1,7 @@
+if [ -z "$1" ]; then
+    echo "Usage: setup-iptables SS_PORT [SSR_PORT]"
+    exit -1
+fi
 ###### iptables ######
 # --flush: delete all rules in all chains
 sudo iptables -F
@@ -21,13 +25,17 @@ sudo iptables -N ICMP
 # TCP chain
 ## SSH at 8022
 sudo iptables -A TCP -p tcp --dport 8022 -j ACCEPT
-## SS at 8060
-sudo iptables -A TCP -p tcp --dport 8060 -j ACCEPT
-
+## SS at $1
+sudo iptables -A TCP -p tcp --dport $1 -j ACCEPT
+if [ -n "$2" ]; then
+    sudo iptables -A TCP -p tcp --dport $2 -j ACCEPT
+fi
 # UDP chain
-## SS at 8060
-sudo iptables -A UDP -p udp --dport 8060 -j ACCEPT
-
+## SS at $1
+sudo iptables -A UDP -p udp --dport $1 -j ACCEPT
+if [ -n "$2" ]; then
+    sudo iptables -A UDP -p udp --dport $2 -j ACCEPT
+fi
 # ICMP chain
 ## ping
 sudo iptables -A ICMP -p icmp --icmp-type echo-request -j ACCEPT
